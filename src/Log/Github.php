@@ -16,16 +16,19 @@ final class Github
     /** @noinspection UnusedFunctionResultInspection */
     public function processClones(CodeCloneMap $clones): void
     {
+        $workingDirectory = getcwd() . '/';
+
         foreach ($clones as $clone) {
             foreach ($clone->files() as $file) {
+                // we need to output relativ paths here
                 $metas = [
-                    'file=' . $file->name(),
+                    'file=' . str_replace($workingDirectory, '', $file->name()),
                     'line=' . $file->startLine(),
                     'endline=' . ($file->startLine() + $clone->numberOfLines()),
                 ];
 
                 $message = 'Duplicated code detected';
-                printf('::error %s::%s', implode(',', $metas), $message) . PHP_EOL;
+                printf('::error %s::%s' . PHP_EOL, implode(',', $metas), $message);
             }
 
             print PHP_EOL;
