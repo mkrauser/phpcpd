@@ -84,7 +84,7 @@ final class SuffixTreeStrategy extends AbstractStrategy
 
         foreach ($cloneInfos as $cloneInfo) {
             /** @var int[] $others */
-            $others = $cloneInfo->otherClones->extractFirstList();
+            $others  = $cloneInfo->otherClones->extractFirstList();
             $counter = count($others);
 
             for ($j = 0; $j < $counter; $j++) {
