@@ -45,6 +45,7 @@ final class DetectorTest extends TestCase
         );
 
         $clones = $clones->clones();
+
         $files  = $clones[0]->files();
         $file   = current($files);
 
@@ -138,6 +139,7 @@ final class DetectorTest extends TestCase
         );
 
         $clones = $clones->clones();
+
         $files  = $clones[0]->files();
         ksort($files);
         $file = current($files);

@@ -169,7 +169,7 @@ class SuffixTree
 
         $this->createRootNode();
 
-        for ($i = 0; $i < $size; $i++) {
+        for ($i = 0; $i < $size; ++$i) {
             $this->update($i);
             $this->canonize($i + 1);
         }
@@ -218,6 +218,7 @@ class SuffixTree
             if ($lastNode != 0) {
                 $this->suffixLink[$lastNode] = $this->explicitNode;
             }
+
             $lastNode          = $this->explicitNode;
             $this->currentNode = $this->suffixLink[$this->currentNode];
             $this->canonize($charPos);
@@ -287,7 +288,7 @@ class SuffixTree
         if ($this->currentNode === -1) {
             // explicitly handle trap state
             $this->currentNode = 0;
-            $this->refWordBegin++;
+            ++$this->refWordBegin;
         }
 
         if ($refWordEnd <= $this->refWordBegin) {

@@ -40,11 +40,11 @@ final class ArgumentsBuilder
                     'algorithm=',
                 ]
             );
-        } catch (CliParserException $e) {
+        } catch (CliParserException $cliParserException) {
             throw new ArgumentsBuilderException(
-                $e->getMessage(),
-                $e->getCode(),
-                $e
+                $cliParserException->getMessage(),
+                $cliParserException->getCode(),
+                $cliParserException
             );
         }
 

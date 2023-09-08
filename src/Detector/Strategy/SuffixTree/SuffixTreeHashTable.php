@@ -98,8 +98,9 @@ class SuffixTreeHashTable
         $sizeIndex = 0;
 
         while ($this->allowedSizes[$sizeIndex] < $minSize) {
-            $sizeIndex++;
+            ++$sizeIndex;
         }
+
         $this->tableSize = $this->allowedSizes[$sizeIndex];
 
         $this->keyNodes    = array_fill(0, $this->tableSize, 0);
@@ -130,10 +131,11 @@ class SuffixTreeHashTable
         $pos = $this->hashFind($keyNode, $keyChar);
 
         if ($this->keyChars[$pos] == null) {
-            $this->_numStoredNodes++;
+            ++$this->_numStoredNodes;
             $this->keyChars[$pos] = $keyChar;
             $this->keyNodes[$pos] = $keyNode;
         }
+
         $this->resultNodes[$pos] = $resultNode;
     }
 
@@ -160,9 +162,10 @@ class SuffixTreeHashTable
         foreach (array_keys($nodeFirstIndex) as $k) {
             $nodeFirstIndex[$k] = -1;
         }
+
         $free = 0;
 
-        for ($i = 0; $i < $this->tableSize; $i++) {
+        for ($i = 0; $i < $this->tableSize; ++$i) {
             if ($this->keyChars[$i] instanceof AbstractToken) {
                 // insert $this->keyNodes[$i] -> $this->resultNodes[$i]
                 $nodeChild[$free]                    = $this->resultNodes[$i];
@@ -178,7 +181,7 @@ class SuffixTreeHashTable
      */
     private function hashFind(int $keyNode, AbstractToken $keyChar): int
     {
-        $this->_numFind++;
+        ++$this->_numFind;
         $hash      = $keyChar->hashCode();
         $pos       = $this->posMod($this->primaryHash($keyNode, $hash));
         $secondary = $this->secondaryHash($keyNode, $hash);
@@ -187,7 +190,8 @@ class SuffixTreeHashTable
             if ($this->keyNodes[$pos] === $keyNode && $keyChar->equals($this->keyChars[$pos])) {
                 break;
             }
-            $this->_numColl++;
+
+            ++$this->_numColl;
             $pos = ($pos + $secondary) % $this->tableSize;
         }
 
