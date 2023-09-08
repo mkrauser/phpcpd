@@ -113,7 +113,6 @@ jobs:
           echo "::set-output name=title::$TITLE"
       - name: Checkout PR
         run: |
-          echo ${{ steps.pr.outputs.branch }}
           git checkout ${{ steps.pr.outputs.branch }}
       # —— Composer 🧙‍️ —————————————————————————————————————————————————————————
       - name: Validate composer.json and composer.lock
