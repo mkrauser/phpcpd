@@ -62,6 +62,6 @@ final class CodeCloneMapIterator implements Iterator
 
     public function next(): void
     {
-        $this->position++;
+        ++$this->position;
     }
 }
