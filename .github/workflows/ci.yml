@@ -129,7 +129,7 @@ jobs:
           git diff --quiet && git diff --staged --quiet || git -c user.name='php-cs-fixer' -c user.email='php-cs-fixer@neubaukompass.de' commit -a -m "Changes by php-cs-fixer"
       - name: rector
         run: |
-          ./vendor/bin/rector process "$file"
+          ./vendor/bin/rector process
           git add -u
       - name: commit rector changes
         run: |
