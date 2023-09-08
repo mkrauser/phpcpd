@@ -114,7 +114,7 @@ class ApproximateCloneDetectingSuffixTree extends SuffixTree
         $this->minLength    = $minLength;
         $this->headEquality = $headEquality;
         $this->cloneInfos   = [];
-        $counter = count($this->word);
+        $counter            = count($this->word);
 
         for ($i = 0; $i < $counter; $i++) {
             // Do quick start, as first character has to match anyway.
@@ -146,7 +146,7 @@ class ApproximateCloneDetectingSuffixTree extends SuffixTree
             }
         }
 
-        $map = [];
+        $map     = [];
         $counter = count($this->word);
 
         for ($index = 0; $index <= $counter; $index++) {
