@@ -127,8 +127,9 @@ jobs:
           files: src/**/*.php
       - name: php-cs-fixer
         run: |
+          wget https://cs.symfony.com/download/php-cs-fixer-v3.phar -O php-cs-fixer
           for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
-              php-cs-fixer fix "$file"
+              php php-cs-fixer fix "$file"
               git add "$file"
           done
       - name: commit php-cs-fixer changes
