@@ -46,8 +46,8 @@ final class DetectorTest extends TestCase
 
         $clones = $clones->clones();
 
-        $files  = $clones[0]->files();
-        $file   = current($files);
+        $files = $clones[0]->files();
+        $file  = current($files);
 
         $this->assertSame(realpath(__DIR__ . '/../fixture/Math.php'), $file->name());
         $this->assertSame(75, $file->startLine());
@@ -140,7 +140,7 @@ final class DetectorTest extends TestCase
 
         $clones = $clones->clones();
 
-        $files  = $clones[0]->files();
+        $files = $clones[0]->files();
         ksort($files);
         $file = current($files);
         $this->assertCount(1, $clones);
