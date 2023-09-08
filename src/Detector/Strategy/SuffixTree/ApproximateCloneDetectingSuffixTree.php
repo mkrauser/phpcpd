@@ -148,10 +148,10 @@ class ApproximateCloneDetectingSuffixTree extends SuffixTree
         $map = [];
 
         for ($index = 0; $index <= count($this->word); $index++) {
-            /** @var ?CloneInfo[] $existingClones */
+            /** @var CloneInfo[] */
             $existingClones = $this->cloneInfos[$index] ?? null;
 
-            if (null !== $existingClones) {
+            if (!empty($existingClones)) {
                 foreach ($existingClones as $ci) {
                     // length = number of tokens
                     // TODO: min token length
@@ -168,7 +168,7 @@ class ApproximateCloneDetectingSuffixTree extends SuffixTree
             }
         }
 
-        /** @var CloneInfo[] $values */
+        /** @var CloneInfo[] */
         $values = array_values($map);
         usort($values, static function (CloneInfo $a, CloneInfo $b): int {
             return $b->length - $a->length;
@@ -376,7 +376,7 @@ class ApproximateCloneDetectingSuffixTree extends SuffixTree
         $currentLength        = 1;
 
         for (; $currentLength <= $currentNodeWordLength; $currentLength++) {
-            /** @var int $best */
+            /** @var int */
             $best                              = $currentLength;
             $this->edBuffer[0][$currentLength] = $currentLength;
             $this->edBuffer[$currentLength][0] = $currentLength;
