@@ -69,7 +69,7 @@ final class SuffixTreeStrategy extends AbstractStrategy
      */
     public function postProcess(): void
     {
-        if (!$this->result instanceof \SebastianBergmann\PHPCPD\CodeCloneMap) {
+        if (!$this->result instanceof CodeCloneMap) {
             throw new MissingResultException('Missing result');
         }
 

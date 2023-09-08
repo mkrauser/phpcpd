@@ -160,7 +160,7 @@ class ApproximateCloneDetectingSuffixTree extends SuffixTree
                     if ($ci->length > $minLength) {
                         $previousCi = $map[$ci->token->line] ?? null;
 
-                        if (!$previousCi instanceof \SebastianBergmann\PHPCPD\Detector\Strategy\SuffixTree\CloneInfo) {
+                        if (!$previousCi instanceof CloneInfo) {
                             $map[$ci->token->line] = $ci;
                         } elseif ($ci->length > $previousCi->length) {
                             $map[$ci->token->line] = $ci;
