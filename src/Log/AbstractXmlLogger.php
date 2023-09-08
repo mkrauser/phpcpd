@@ -53,7 +53,7 @@ abstract class AbstractXmlLogger
     {
         $length = strlen($string);
 
-        for ($i = 0; $i < $length; $i++) {
+        for ($i = 0; $i < $length; ++$i) {
             if (ord($string[$i]) < 0x80) {
                 $n = 0;
             } elseif ((ord($string[$i]) & 0xE0) === 0xC0) {
@@ -66,7 +66,7 @@ abstract class AbstractXmlLogger
                 return false;
             }
 
-            for ($j = 0; $j < $n; $j++) {
+            for ($j = 0; $j < $n; ++$j) {
                 if ((++$i === $length) || ((ord($string[$i]) & 0xC0) !== 0x80)) {
                     return false;
                 }

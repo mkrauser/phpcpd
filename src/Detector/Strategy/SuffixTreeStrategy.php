@@ -87,7 +87,7 @@ final class SuffixTreeStrategy extends AbstractStrategy
             $others  = $cloneInfo->otherClones->extractFirstList();
             $counter = count($others);
 
-            for ($j = 0; $j < $counter; $j++) {
+            for ($j = 0; $j < $counter; ++$j) {
                 $otherStart = $others[$j];
                 $t          = $this->word[$otherStart];
                 $lastToken  = $this->word[$cloneInfo->position + $cloneInfo->length];
