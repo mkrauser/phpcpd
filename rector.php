@@ -14,6 +14,10 @@ return static function (RectorConfig $rectorConfig): void {
         __DIR__ . '/tests',
     ]);
 
+    $rectorConfig->skip([
+        __DIR__ . '/tests/fixture',
+    ]);
+
     // register a single rule
 
     $rectorConfig->sets([
