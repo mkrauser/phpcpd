@@ -120,27 +120,17 @@ jobs:
       - name: Install Composer dependencies
         run: composer install
       # —— Run php-cs-fixer and rector 🧙‍️———————————————————————————————————————
-      - name: Get changed files
-        id: changed-files
-        uses: tj-actions/changed-files@v35
-        with:
-          files: src/**/*.php
       - name: php-cs-fixer
         run: |
           wget https://cs.symfony.com/download/php-cs-fixer-v3.phar -O php-cs-fixer
-          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
-              php php-cs-fixer fix "$file"
-              git add "$file"
-          done
+          php php-cs-fixer fix
       - name: commit php-cs-fixer changes
         run: |
           git diff --quiet && git diff --staged --quiet || git -c user.name='php-cs-fixer' -c user.email='php-cs-fixer@neubaukompass.de' commit -a -m "Changes by php-cs-fixer"
       - name: rector
         run: |
-          for file in ${{ steps.changed-files.outputs.all_changed_files }}; do
-            ./vendor/bin/rector process "$file"
-            git add "$file"
-          done
+          ./vendor/bin/rector process "$file"
+          git add -u
       - name: commit rector changes
         run: |
           git diff --quiet && git diff --staged --quiet || git -c user.name='rector' -c user.email='rector@neubaukompass.de' commit -a -m "Ruling the world via Rector!"
