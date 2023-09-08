@@ -33,7 +33,7 @@ final class CodeClone
 
     public function __construct(CodeCloneFile $fileA, CodeCloneFile $fileB, int $numberOfLines, int $numberOfTokens)
     {
-        $this->add($fileA);
+        $this->add($fileA) ;
         $this->add($fileB);
 
         $this->numberOfLines  = $numberOfLines;
