@@ -90,8 +90,9 @@ jobs:
     if: github.actor != 'dependabot[bot]'
     steps:
       - name: "Checkout"
-        uses: "actions/checkout@v2"
-
+        uses: "actions/checkout@v4"
+        with:
+          fetch-depth: 0
       - name: "Install PHP with extensions"
         uses: "shivammathur/setup-php@v2"
         with:
@@ -112,14 +113,11 @@ jobs:
           echo "::set-output name=title::$TITLE"
       - name: Checkout PR
         run: |
-          echo ${{ steps.pr.outputs.branch }}
           git checkout ${{ steps.pr.outputs.branch }}
       # —— Composer 🧙‍️ —————————————————————————————————————————————————————————
       - name: Validate composer.json and composer.lock
         run: composer validate
       - name: Install Composer dependencies
-        env:
-          COMPOSER_AUTH: '{"github-oauth": {"github.com": "${{secrets.COMPOSER_OAUTH}}"} }'
         run: composer install
       # —— Run php-cs-fixer and rector 🧙‍️———————————————————————————————————————
       - name: Get changed files
