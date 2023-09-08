@@ -151,18 +151,16 @@ class ApproximateCloneDetectingSuffixTree extends SuffixTree
             /** @var CloneInfo[] $existingClones */
             $existingClones = $this->cloneInfos[$index] ?? null;
 
-            if (!empty($existingClones)) {
-                foreach ($existingClones as $ci) {
-                    // length = number of tokens
-                    // TODO: min token length
-                    if ($ci->length > $minLength) {
-                        $previousCi = $map[$ci->token->line] ?? null;
+            foreach ($existingClones as $ci) {
+                // length = number of tokens
+                // TODO: min token length
+                if ($ci->length > $minLength) {
+                    $previousCi = $map[$ci->token->line] ?? null;
 
-                        if ($previousCi === null) {
-                            $map[$ci->token->line] = $ci;
-                        } elseif ($ci->length > $previousCi->length) {
-                            $map[$ci->token->line] = $ci;
-                        }
+                    if ($previousCi === null) {
+                        $map[$ci->token->line] = $ci;
+                    } elseif ($ci->length > $previousCi->length) {
+                        $map[$ci->token->line] = $ci;
                     }
                 }
             }
