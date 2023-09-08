@@ -78,7 +78,7 @@ class PairList
     {
         $this->firstElements[$this->size]  = $first;
         $this->secondElements[$this->size] = $second;
-        ++$this->size;
+        $this->size++;
     }
 
     /** Adds all pairs from another list. */
@@ -88,10 +88,10 @@ class PairList
         // other == this
         $otherSize = $other->size;
 
-        for ($i = 0; $i < $otherSize; ++$i) {
+        for ($i = 0; $i < $otherSize; $i++) {
             $this->firstElements[$this->size]  = $other->firstElements[$i];
             $this->secondElements[$this->size] = $other->secondElements[$i];
-            ++$this->size;
+            $this->size++;
         }
     }
 
@@ -150,7 +150,7 @@ class PairList
     {
         $result = [];
 
-        for ($i = 0; $i < $this->size; ++$i) {
+        for ($i = 0; $i < $this->size; $i++) {
             $result[] = $this->firstElements[$i];
         }
 
@@ -166,7 +166,7 @@ class PairList
     {
         $result = [];
 
-        for ($i = 0; $i < $this->size; ++$i) {
+        for ($i = 0; $i < $this->size; $i++) {
             $result[] = $this->secondElements[$i];
         }
 
@@ -193,7 +193,7 @@ class PairList
     /** Removes the last element of the list. */
     public function removeLast(): void
     {
-        --$this->size;
+        $this->size--;
     }
 
     public function hashCode(): int

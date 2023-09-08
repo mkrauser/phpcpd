@@ -151,7 +151,7 @@ final class DefaultStrategy extends AbstractStrategy
                 $this->hashes[$hash] = [$file, $realLine];
             }
 
-            ++$tokenNr;
+            $tokenNr++;
         }
 
         if ($found) {
