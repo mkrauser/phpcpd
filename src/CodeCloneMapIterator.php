@@ -1,4 +1,7 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of PHP Copy/Paste Detector (PHPCPD).
  *
@@ -7,17 +10,15 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace SebastianBergmann\PHPCPD;
 
-use function array_reverse;
-use function count;
-use function usort;
 use Iterator;
 
 /**
  * @template-implements Iterator<CodeClone>
  */
-final class CodeCloneMapIterator implements Iterator
+final class CodeCloneMapIterator implements \Iterator
 {
     /**
      * @var CodeClone[]
@@ -30,14 +31,14 @@ final class CodeCloneMapIterator implements Iterator
     {
         $this->clones = $clones->clones();
 
-        usort(
+        \usort(
             $this->clones,
             static function (CodeClone $a, CodeClone $b): int {
                 return $a->numberOfLines() <=> $b->numberOfLines();
             }
         );
 
-        $this->clones = array_reverse($this->clones);
+        $this->clones = \array_reverse($this->clones);
     }
 
     public function rewind(): void
@@ -47,7 +48,7 @@ final class CodeCloneMapIterator implements Iterator
 
     public function valid(): bool
     {
-        return $this->position < count($this->clones);
+        return $this->position < \count($this->clones);
     }
 
     public function key(): int
@@ -62,6 +63,6 @@ final class CodeCloneMapIterator implements Iterator
 
     public function next(): void
     {
-        $this->position++;
+        ++$this->position;
     }
 }
