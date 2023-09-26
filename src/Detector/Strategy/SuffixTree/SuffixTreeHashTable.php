@@ -167,7 +167,7 @@ class SuffixTreeHashTable
         $free = 0;
 
         for ($i = 0; $i < $this->tableSize; ++$i) {
-            if (null !== $this->keyChars[$i]) {
+            if ($this->keyChars[$i] instanceof \SebastianBergmann\PHPCPD\Detector\Strategy\SuffixTree\AbstractToken) {
                 // insert $this->keyNodes[$i] -> $this->resultNodes[$i]
                 $nodeChild[$free] = $this->resultNodes[$i];
                 $nodeNextIndex[$free] = $nodeFirstIndex[$this->keyNodes[$i]];
@@ -187,7 +187,7 @@ class SuffixTreeHashTable
         $pos = $this->posMod($this->primaryHash($keyNode, $hash));
         $secondary = $this->secondaryHash($keyNode, $hash);
 
-        while (null !== $this->keyChars[$pos]) {
+        while ($this->keyChars[$pos] instanceof \SebastianBergmann\PHPCPD\Detector\Strategy\SuffixTree\AbstractToken) {
             if ($this->keyNodes[$pos] === $keyNode && $keyChar->equals($this->keyChars[$pos])) {
                 break;
             }

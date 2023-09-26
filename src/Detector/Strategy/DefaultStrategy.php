@@ -40,19 +40,19 @@ final class DefaultStrategy extends AbstractStrategy
 
     public function processFile(string $file, CodeCloneMap $result): void
     {
-        $buffer = \file_get_contents($file);
+        $buffer = file_get_contents($file);
         $currentTokenPositions = [];
         $currentTokenRealPositions = [];
         $currentSignature = '';
-        $tokens = \token_get_all($buffer);
+        $tokens = token_get_all($buffer);
         $tokenNr = 0;
         $lastTokenLine = 0;
 
-        $result->addToNumberOfLines(\substr_count($buffer, "\n"));
+        $result->addToNumberOfLines(substr_count($buffer, "\n"));
 
         unset($buffer);
 
-        foreach (\array_keys($tokens) as $key) {
+        foreach (array_keys($tokens) as $key) {
             $token = $tokens[$key];
 
             if (\is_array($token)) {
@@ -71,7 +71,7 @@ final class DefaultStrategy extends AbstractStrategy
                     }
 
                     $currentSignature .= \chr($token[0] & 255).
-                        \pack('N*', \crc32($token[1]));
+                        pack('N*', \crc32($token[1]));
                 }
 
                 $lastTokenLine = $token[2];
@@ -92,9 +92,9 @@ final class DefaultStrategy extends AbstractStrategy
             $line = $currentTokenPositions[$tokenNr];
             $realLine = $currentTokenRealPositions[$tokenNr];
 
-            $hash = \substr(
-                \md5(
-                    \substr(
+            $hash = substr(
+                md5(
+                    substr(
                         $currentSignature,
                         $tokenNr * 5,
                         $this->config->minTokens() * 5

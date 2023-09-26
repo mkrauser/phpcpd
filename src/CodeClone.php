@@ -35,7 +35,7 @@ final class CodeClone
 
         $this->numberOfLines = $numberOfLines;
         $this->numberOfTokens = $numberOfTokens;
-        $this->id = \md5($this->lines());
+        $this->id = md5($this->lines());
     }
 
     public function add(CodeCloneFile $file): void
@@ -57,17 +57,17 @@ final class CodeClone
 
     public function lines(string $indent = ''): string
     {
-        if ($this->lines === '') {
-            $file = \current($this->files);
+        if ('' === $this->lines) {
+            $file = current($this->files);
 
-            $this->lines = \implode(
+            $this->lines = implode(
                 '',
-                \array_map(
+                array_map(
                     static function (string $line) use ($indent) {
                         return $indent.$line;
                     },
                     \array_slice(
-                        \file($file->name()),
+                        file($file->name()),
                         $file->startLine() - 1,
                         $this->numberOfLines
                     )

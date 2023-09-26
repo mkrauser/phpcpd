@@ -118,9 +118,9 @@ class ApproximateCloneDetectingSuffixTree extends SuffixTree
         $this->minLength = $minLength;
         $this->headEquality = $headEquality;
         $this->cloneInfos = [];
-        $counter            = count($this->word);
+        $counter = \count($this->word);
 
-        for ($i = 0; $i < \count($this->word); ++$i) {
+        for ($i = 0; $i < $counter; ++$i) {
             // Do quick start, as first character has to match anyway.
             $node = $this->nextNode->get(0, $this->word[$i]);
 
@@ -151,23 +151,21 @@ class ApproximateCloneDetectingSuffixTree extends SuffixTree
         }
 
         $map = [];
+        $counter = \count($this->word);
 
-        for ($index = 0; $index <= \count($this->word); ++$index) {
-            /** @var CloneInfo[] */
+        for ($index = 0; $index <= $counter; ++$index) {
             $existingClones = $this->cloneInfos[$index] ?? null;
 
-            if (!empty($existingClones)) {
-                foreach ($existingClones as $ci) {
-                    // length = number of tokens
-                    // TODO: min token length
-                    if ($ci->length > $minLength) {
-                        $previousCi = $map[$ci->token->line] ?? null;
+            foreach ($existingClones as $ci) {
+                // length = number of tokens
+                // TODO: min token length
+                if ($ci->length > $minLength) {
+                    $previousCi = $map[$ci->token->line] ?? null;
 
-                        if (null === $previousCi) {
-                            $map[$ci->token->line] = $ci;
-                        } elseif ($ci->length > $previousCi->length) {
-                            $map[$ci->token->line] = $ci;
-                        }
+                    if (!$previousCi instanceof \SebastianBergmann\PHPCPD\Detector\Strategy\SuffixTree\CloneInfo) {
+                        $map[$ci->token->line] = $ci;
+                    } elseif ($ci->length > $previousCi->length) {
+                        $map[$ci->token->line] = $ci;
                     }
                 }
             }
@@ -550,7 +548,7 @@ class ApproximateCloneDetectingSuffixTree extends SuffixTree
         if ($this->nodeChildFirst[$currentNode] < 0) {
             $start = \count($this->word) - $distance - $nodeWordLength;
 
-            if ($start != $wordStart) {
+            if ($start !== $wordStart) {
                 $clonePositions->add($start, $nodeWordLength);
             }
         }

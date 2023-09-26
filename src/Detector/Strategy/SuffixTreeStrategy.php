@@ -44,10 +44,10 @@ final class SuffixTreeStrategy extends AbstractStrategy
 
     public function processFile(string $file, CodeCloneMap $result): void
     {
-        $content = \file_get_contents($file);
-        $tokens = \token_get_all($content);
+        $content = file_get_contents($file);
+        $tokens = token_get_all($content);
 
-        foreach (\array_keys($tokens) as $key) {
+        foreach (array_keys($tokens) as $key) {
             $token = $tokens[$key];
 
             if (\is_array($token) && !isset($this->tokensIgnoreList[$token[0]])) {
@@ -84,10 +84,10 @@ final class SuffixTreeStrategy extends AbstractStrategy
 
         foreach ($cloneInfos as $cloneInfo) {
             /** @var int[] $others */
-            $others  = $cloneInfo->otherClones->extractFirstList();
-            $counter = count($others);
+            $others = $cloneInfo->otherClones->extractFirstList();
+            $counter = \count($others);
 
-            for ($j = 0; $j < $counter; $j++) {
+            for ($j = 0; $j < $counter; ++$j) {
                 $otherStart = $others[$j];
                 $t = $this->word[$otherStart];
                 $lastToken = $this->word[$cloneInfo->position + $cloneInfo->length];

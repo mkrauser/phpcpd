@@ -31,14 +31,14 @@ final class CodeCloneMapIterator implements \Iterator
     {
         $this->clones = $clones->clones();
 
-        \usort(
+        usort(
             $this->clones,
             static function (CodeClone $a, CodeClone $b): int {
                 return $a->numberOfLines() <=> $b->numberOfLines();
             }
         );
 
-        $this->clones = \array_reverse($this->clones);
+        $this->clones = array_reverse($this->clones);
     }
 
     public function rewind(): void

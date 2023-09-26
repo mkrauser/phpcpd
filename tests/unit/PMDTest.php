@@ -44,32 +44,32 @@ final class PMDTest extends TestCase
         $this->testFile1 = __DIR__.'/../fixture/with_ascii_escape.php';
         $this->testFile2 = __DIR__.'/../fixture/with_ascii_escape2.php';
 
-        $this->pmdLogFile = \tempnam(\sys_get_temp_dir(), 'pmd');
+        $this->pmdLogFile = tempnam(sys_get_temp_dir(), 'pmd');
 
-        $this->expectedPmdLogFile = \tempnam(\sys_get_temp_dir(), 'pmd');
+        $this->expectedPmdLogFile = tempnam(sys_get_temp_dir(), 'pmd');
         $expectedPmdLogTemplate = __DIR__.'/../fixture/pmd_expected.xml';
 
-        $expectedPmdLogContents = \strtr(
-            \file_get_contents($expectedPmdLogTemplate),
+        $expectedPmdLogContents = strtr(
+            file_get_contents($expectedPmdLogTemplate),
             [
                 '%file1%' => $this->testFile1,
                 '%file2%' => $this->testFile2,
             ]
         );
 
-        \file_put_contents($this->expectedPmdLogFile, $expectedPmdLogContents);
+        file_put_contents($this->expectedPmdLogFile, $expectedPmdLogContents);
 
         $this->pmdLogger = new PMD($this->pmdLogFile);
     }
 
     protected function tearDown(): void
     {
-        if (\file_exists($this->pmdLogFile)) {
-            \unlink($this->pmdLogFile);
+        if (file_exists($this->pmdLogFile)) {
+            unlink($this->pmdLogFile);
         }
 
-        if (\file_exists($this->expectedPmdLogFile)) {
-            \unlink($this->expectedPmdLogFile);
+        if (file_exists($this->expectedPmdLogFile)) {
+            unlink($this->expectedPmdLogFile);
         }
     }
 

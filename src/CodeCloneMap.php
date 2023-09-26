@@ -61,7 +61,7 @@ final class CodeCloneMap implements \Countable, \IteratorAggregate
             }
         }
 
-        $this->largestCloneSize = \max($this->largestCloneSize, $clone->numberOfLines());
+        $this->largestCloneSize = max($this->largestCloneSize, $clone->numberOfLines());
     }
 
     /**
@@ -76,7 +76,7 @@ final class CodeCloneMap implements \Countable, \IteratorAggregate
     {
         $percent = $this->numberOfLines > 0 ? ($this->numberOfDuplicatedLines / $this->numberOfLines) * 100 : 100;
 
-        return \sprintf('%01.2F%%', $percent);
+        return sprintf('%01.2F%%', $percent);
     }
 
     public function numberOfLines(): int
@@ -111,7 +111,7 @@ final class CodeCloneMap implements \Countable, \IteratorAggregate
 
     public function isEmpty(): bool
     {
-        return $this->clones === [];
+        return [] === $this->clones;
     }
 
     public function averageSize(): float

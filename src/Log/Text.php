@@ -20,7 +20,7 @@ final class Text
     public function printResult(CodeCloneMap $clones, bool $verbose): void
     {
         if (\count($clones) > 0) {
-            \printf(
+            printf(
                 'Found %d code clones with %d duplicated lines in %d files:'.\PHP_EOL.\PHP_EOL,
                 \count($clones),
                 $clones->numberOfDuplicatedLines(),
@@ -32,7 +32,7 @@ final class Text
             $firstOccurrence = true;
 
             foreach ($clone->files() as $file) {
-                \printf(
+                printf(
                     '  %s%s:%d-%d%s'.\PHP_EOL,
                     $firstOccurrence ? '- ' : '  ',
                     $file->name(),
@@ -57,7 +57,7 @@ final class Text
             return;
         }
 
-        \printf(
+        printf(
             '%s duplicated lines out of %d total lines of code.'.\PHP_EOL.
             'Average code clone size is %d lines, the largest code clone has %d lines'.\PHP_EOL.\PHP_EOL,
             $clones->percentage(),

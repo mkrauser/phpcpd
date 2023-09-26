@@ -33,13 +33,13 @@ abstract class AbstractXmlLogger
 
     protected function flush(): void
     {
-        \file_put_contents($this->filename, $this->document->saveXML());
+        file_put_contents($this->filename, $this->document->saveXML());
     }
 
     protected function convertToUtf8(string $string): string
     {
         if (!$this->isUtf8($string)) {
-            $string = \mb_convert_encoding($string, 'UTF-8');
+            $string = mb_convert_encoding($string, 'UTF-8');
         }
 
         return $string;
@@ -76,12 +76,12 @@ abstract class AbstractXmlLogger
     {
         $string = $this->convertToUtf8($string);
 
-        $string = \preg_replace(
+        $string = preg_replace(
             '/[^\x09\x0A\x0D\x{0020}-\x{D7FF}\x{E000}-\x{FFFD}]/u',
             "\xEF\xBF\xBD",
             $string
         );
 
-        return \htmlspecialchars($string, \ENT_COMPAT);
+        return htmlspecialchars($string, \ENT_COMPAT);
     }
 }

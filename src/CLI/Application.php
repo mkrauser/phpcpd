@@ -95,7 +95,7 @@ final class Application
 
     private function printVersion(): void
     {
-        \printf(
+        printf(
             'phpcpd %s by Sebastian Bergmann.'.\PHP_EOL,
             (new Version(self::VERSION, \dirname(__DIR__)))->asString()
         );

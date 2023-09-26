@@ -47,12 +47,12 @@ final class DetectorTest extends TestCase
 
         $clones = $clones->clones();
         $files = $clones[0]->files();
-        $file = \current($files);
+        $file = current($files);
 
         $this->assertSame(realpath(__DIR__.'/../fixture/Math.php'), $file->name());
         $this->assertSame(75, $file->startLine());
 
-        $file = \next($files);
+        $file = next($files);
 
         $this->assertSame(realpath(__DIR__.'/../fixture/Math.php'), $file->name());
         $this->assertSame(139, $file->startLine());
@@ -141,12 +141,12 @@ final class DetectorTest extends TestCase
         $clones = $clones->clones();
         $files = $clones[0]->files();
         ksort($files);
-        $file = \current($files);
+        $file = current($files);
         $this->assertCount(1, $clones);
         $this->assertSame(\dirname(__DIR__).'/fixture/a.php', $file->name());
         $this->assertSame(4, $file->startLine());
 
-        $file = \next($files);
+        $file = next($files);
 
         $this->assertSame(\dirname(__DIR__).'/fixture/b.php', $file->name());
         $this->assertSame(4, $file->startLine());
@@ -171,20 +171,20 @@ final class DetectorTest extends TestCase
         $clones = $clones->clones();
         // var_dump($clones);
         $files = $clones[0]->files();
-        \sort($files);
+        sort($files);
 
-        $file = \current($files);
+        $file = current($files);
 
         $this->assertCount(1, $clones);
         $this->assertSame(\dirname(__DIR__).'/fixture/a.php', $file->name());
         $this->assertSame(4, $file->startLine());
 
-        $file = \next($files);
+        $file = next($files);
 
         $this->assertSame(\dirname(__DIR__).'/fixture/b.php', $file->name());
         $this->assertSame(4, $file->startLine());
 
-        $file = \next($files);
+        $file = next($files);
 
         $this->assertSame(\dirname(__DIR__).'/fixture/c.php', $file->name());
         $this->assertSame(4, $file->startLine());
