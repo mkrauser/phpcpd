@@ -150,12 +150,16 @@ class ApproximateCloneDetectingSuffixTree extends SuffixTree
             }
         }
 
+        /** @var array<int, CloneInfo> $map */
         $map = [];
         $counter = \count($this->word);
 
         for ($index = 0; $index <= $counter; ++$index) {
             $existingClones = $this->cloneInfos[$index] ?? null;
 
+            if($existingClones === null) {
+                continue;
+            }
             foreach ($existingClones as $ci) {
                 // length = number of tokens
                 // TODO: min token length
