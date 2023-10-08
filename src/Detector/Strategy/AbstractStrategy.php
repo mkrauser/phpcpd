@@ -34,17 +34,17 @@ abstract class AbstractStrategy
 
     protected StrategyConfiguration $config;
 
-    public function __construct(StrategyConfiguration $config)
+    public function __construct(StrategyConfiguration $strategyConfiguration)
     {
-        $this->config = $config;
+        $this->config = $strategyConfiguration;
     }
 
-    public function setConfig(StrategyConfiguration $config): void
+    public function setConfig(StrategyConfiguration $strategyConfiguration): void
     {
-        $this->config = $config;
+        $this->config = $strategyConfiguration;
     }
 
-    abstract public function processFile(string $file, CodeCloneMap $result): void;
+    abstract public function processFile(string $file, CodeCloneMap $codeCloneMap): void;
 
     public function postProcess(): void
     {

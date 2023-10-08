@@ -50,13 +50,13 @@ class CloneInfo
     private $occurrences;
 
     /** Constructor. */
-    public function __construct(int $length, int $position, int $occurrences, AbstractToken $token, PairList $otherClones)
+    public function __construct(int $length, int $position, int $occurrences, AbstractToken $token, PairList $pairList)
     {
         $this->length = $length;
         $this->position = $position;
         $this->occurrences = $occurrences;
         $this->token = $token;
-        $this->otherClones = $otherClones;
+        $this->otherClones = $pairList;
     }
 
     /**

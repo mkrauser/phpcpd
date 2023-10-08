@@ -29,7 +29,7 @@ abstract class AbstractXmlLogger
         $this->filename = $filename;
     }
 
-    abstract public function processClones(CodeCloneMap $clones): void;
+    abstract public function processClones(CodeCloneMap $codeCloneMap): void;
 
     protected function flush(): void
     {

@@ -37,7 +37,7 @@ final class PMDTest extends TestCase
 
     private string|false $expectedPmdLogFile;
 
-    private PMD $pmdLogger;
+    private PMD $pmd;
 
     protected function setUp(): void
     {
@@ -59,7 +59,7 @@ final class PMDTest extends TestCase
 
         file_put_contents($this->expectedPmdLogFile, $expectedPmdLogContents);
 
-        $this->pmdLogger = new PMD($this->pmdLogFile);
+        $this->pmd = new PMD($this->pmdLogFile);
     }
 
     protected function tearDown(): void
@@ -77,12 +77,12 @@ final class PMDTest extends TestCase
     {
         $file1 = new CodeCloneFile($this->testFile1, 8);
         $file2 = new CodeCloneFile($this->testFile2, 8);
-        $clone = new CodeClone($file1, $file2, 4, 4);
-        $cloneMap = new CodeCloneMap();
+        $codeClone = new CodeClone($file1, $file2, 4, 4);
+        $codeCloneMap = new CodeCloneMap();
 
-        $cloneMap->add($clone);
+        $codeCloneMap->add($codeClone);
 
-        $this->pmdLogger->processClones($cloneMap);
+        $this->pmd->processClones($codeCloneMap);
 
         $this->assertXmlFileEqualsXmlFile(
             $this->expectedPmdLogFile,

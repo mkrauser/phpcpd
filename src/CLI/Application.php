@@ -56,21 +56,21 @@ final class Application
             return 0;
         }
 
-        $files = (new Finder())->in($arguments->directories())
+        $finder = (new Finder())->in($arguments->directories())
             ->notPath($arguments->exclude())
             ->files()
             ->name($arguments->suffixes());
 
-        if (0 == iterator_count($files)) {
+        if (0 == iterator_count($finder)) {
             echo 'No files found to scan'.\PHP_EOL;
 
             return 1;
         }
 
-        $config = new StrategyConfiguration($arguments);
+        $strategyConfiguration = new StrategyConfiguration($arguments);
 
         try {
-            $strategy = $this->pickStrategy($arguments->algorithm(), $config);
+            $strategy = $this->pickStrategy($arguments->algorithm(), $strategyConfiguration);
         } catch (InvalidStrategyException $invalidStrategyException) {
             echo $invalidStrategyException->getMessage().\PHP_EOL;
 
@@ -80,7 +80,7 @@ final class Application
         $timer = new Timer();
         $timer->start();
 
-        $clones = (new Detector($strategy))->copyPasteDetection($files);
+        $clones = (new Detector($strategy))->copyPasteDetection($finder);
 
         (new Text())->printResult($clones, $arguments->verbose());
 
@@ -104,11 +104,11 @@ final class Application
     /**
      * @throws InvalidStrategyException
      */
-    private function pickStrategy(?string $algorithm, StrategyConfiguration $config): AbstractStrategy
+    private function pickStrategy(?string $algorithm, StrategyConfiguration $strategyConfiguration): AbstractStrategy
     {
         return match ($algorithm) {
-            null, 'rabin-karp' => new DefaultStrategy($config),
-            'suffixtree' => new SuffixTreeStrategy($config),
+            null, 'rabin-karp' => new DefaultStrategy($strategyConfiguration),
+            'suffixtree' => new SuffixTreeStrategy($strategyConfiguration),
             default => throw new InvalidStrategyException('Unsupported algorithm: '.$algorithm),
         };
     }

@@ -161,16 +161,16 @@ class ApproximateCloneDetectingSuffixTree extends SuffixTree
                 continue;
             }
 
-            foreach ($existingClones as $ci) {
+            foreach ($existingClones as $existingClone) {
                 // length = number of tokens
                 // TODO: min token length
-                if ($ci->length > $minLength) {
-                    $previousCi = $map[$ci->token->line] ?? null;
+                if ($existingClone->length > $minLength) {
+                    $previousCi = $map[$existingClone->token->line] ?? null;
 
                     if (!$previousCi instanceof \SebastianBergmann\PHPCPD\Detector\Strategy\SuffixTree\CloneInfo) {
-                        $map[$ci->token->line] = $ci;
-                    } elseif ($ci->length > $previousCi->length) {
-                        $map[$ci->token->line] = $ci;
+                        $map[$existingClone->token->line] = $existingClone;
+                    } elseif ($existingClone->length > $previousCi->length) {
+                        $map[$existingClone->token->line] = $existingClone;
                     }
                 }
             }
@@ -463,28 +463,28 @@ class ApproximateCloneDetectingSuffixTree extends SuffixTree
 
         // NB: 0 and 0 are two indicate the template S and T for Psalm, in lack of generics.
         /** @var PairList<int, int> $otherClones */
-        $otherClones = new PairList(16);
+        $pairList = new PairList(16);
         $this->findRemainingClones(
-            $otherClones,
+            $pairList,
             $nodeWordLength,
             $currentNode,
             $this->nodeWordEnd[$currentNode] - $this->nodeWordBegin[$currentNode] - $nodeWordPos,
             $wordBegin
         );
 
-        $occurrences = 1 + $otherClones->size();
+        $occurrences = 1 + $pairList->size();
 
         // check whether we may start from here
         $t = $this->word[$wordBegin];
-        $newInfo = new CloneInfo($length, $wordBegin, $occurrences, $t, $otherClones);
+        $newInfo = new CloneInfo($length, $wordBegin, $occurrences, $t, $pairList);
 
         for ($index = max(0, $wordBegin - $this->INDEX_SPREAD + 1); $index <= $wordBegin; ++$index) {
             $existingClones = $this->cloneInfos[$index] ?? null;
 
             if (null != $existingClones) {
                 // for (CloneInfo cloneInfo : $existingClones) {
-                foreach ($existingClones as $cloneInfo) {
-                    if ($cloneInfo->dominates($newInfo, $wordBegin - $index)) {
+                foreach ($existingClones as $existingClone) {
+                    if ($existingClone->dominates($newInfo, $wordBegin - $index)) {
                         // we already have a dominating clone, so ignore
                         return;
                     }
@@ -494,17 +494,17 @@ class ApproximateCloneDetectingSuffixTree extends SuffixTree
 
         // add clone to $otherClones to avoid getting more duplicates
         for ($i = $wordBegin; $i < $wordEnd; $i += $this->INDEX_SPREAD) {
-            $this->cloneInfos[$i][] = new CloneInfo($length - ($i - $wordBegin), $wordBegin, $occurrences, $t, $otherClones);
+            $this->cloneInfos[$i][] = new CloneInfo($length - ($i - $wordBegin), $wordBegin, $occurrences, $t, $pairList);
         }
 
         $t = $this->word[$wordBegin];
 
-        for ($clone = 0; $clone < $otherClones->size(); ++$clone) {
-            $start = $otherClones->getFirst($clone);
-            $otherLength = $otherClones->getSecond($clone);
+        for ($clone = 0; $clone < $pairList->size(); ++$clone) {
+            $start = $pairList->getFirst($clone);
+            $otherLength = $pairList->getSecond($clone);
 
             for ($i = 0; $i < $otherLength; $i += $this->INDEX_SPREAD) {
-                $this->cloneInfos[$start + $i][] = new CloneInfo($otherLength - $i, $wordBegin, $occurrences, $t, $otherClones);
+                $this->cloneInfos[$start + $i][] = new CloneInfo($otherLength - $i, $wordBegin, $occurrences, $t, $pairList);
             }
         }
     }
@@ -534,14 +534,14 @@ class ApproximateCloneDetectingSuffixTree extends SuffixTree
      * Fills a list of pairs giving the start positions and lengths of the
      * remaining clones.
      *
-     * @param PairList $clonePositions the clone positions being filled (start position and length)
+     * @param PairList $pairList the clone positions being filled (start position and length)
      * @param int      $nodeWordLength the length of the word along the nodes
      * @param int      $currentNode    the node we are currently at
      * @param int      $distance       the distance along the word leading to the current node
      * @param int      $wordStart      the start of the currently searched word
      */
     private function findRemainingClones(
-        PairList $clonePositions,
+        PairList $pairList,
         int $nodeWordLength,
         int $currentNode,
         int $distance,
@@ -549,7 +549,7 @@ class ApproximateCloneDetectingSuffixTree extends SuffixTree
     ): void {
         for ($nextNode = $this->nodeChildFirst[$currentNode]; $nextNode >= 0; $nextNode = $this->nodeChildNext[$nextNode]) {
             $node = $this->nodeChildNode[$nextNode];
-            $this->findRemainingClones($clonePositions, $nodeWordLength, $node, $distance
+            $this->findRemainingClones($pairList, $nodeWordLength, $node, $distance
                     + $this->nodeWordEnd[$node] - $this->nodeWordBegin[$node], $wordStart);
         }
 
@@ -557,7 +557,7 @@ class ApproximateCloneDetectingSuffixTree extends SuffixTree
             $start = \count($this->word) - $distance - $nodeWordLength;
 
             if ($start !== $wordStart) {
-                $clonePositions->add($start, $nodeWordLength);
+                $pairList->add($start, $nodeWordLength);
             }
         }
     }

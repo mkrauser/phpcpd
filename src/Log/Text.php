@@ -17,18 +17,18 @@ use SebastianBergmann\PHPCPD\CodeCloneMap;
 
 final class Text
 {
-    public function printResult(CodeCloneMap $clones, bool $verbose): void
+    public function printResult(CodeCloneMap $codeCloneMap, bool $verbose): void
     {
-        if (\count($clones) > 0) {
+        if (\count($codeCloneMap) > 0) {
             printf(
                 'Found %d code clones with %d duplicated lines in %d files:'.\PHP_EOL.\PHP_EOL,
-                \count($clones),
-                $clones->numberOfDuplicatedLines(),
-                $clones->numberOfFilesWithClones()
+                \count($codeCloneMap),
+                $codeCloneMap->numberOfDuplicatedLines(),
+                $codeCloneMap->numberOfFilesWithClones()
             );
         }
 
-        foreach ($clones as $clone) {
+        foreach ($codeCloneMap as $clone) {
             $firstOccurrence = true;
 
             foreach ($clone->files() as $file) {
@@ -51,7 +51,7 @@ final class Text
             echo \PHP_EOL;
         }
 
-        if ($clones->isEmpty()) {
+        if ($codeCloneMap->isEmpty()) {
             echo 'No code clones found.'.\PHP_EOL.\PHP_EOL;
 
             return;
@@ -60,10 +60,10 @@ final class Text
         printf(
             '%s duplicated lines out of %d total lines of code.'.\PHP_EOL.
             'Average code clone size is %d lines, the largest code clone has %d lines'.\PHP_EOL.\PHP_EOL,
-            $clones->percentage(),
-            $clones->numberOfLines(),
-            $clones->averageSize(),
-            $clones->largestSize()
+            $codeCloneMap->percentage(),
+            $codeCloneMap->numberOfLines(),
+            $codeCloneMap->averageSize(),
+            $codeCloneMap->largestSize()
         );
     }
 }

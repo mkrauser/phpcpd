@@ -38,30 +38,30 @@ final class CodeCloneMap implements \Countable, \IteratorAggregate
 
     private array $filesWithClones = [];
 
-    public function add(CodeClone $clone): void
+    public function add(CodeClone $codeClone): void
     {
-        $id = $clone->id();
+        $id = $codeClone->id();
 
         if (!isset($this->clonesById[$id])) {
-            $this->clones[] = $clone;
-            $this->clonesById[$id] = $clone;
+            $this->clones[] = $codeClone;
+            $this->clonesById[$id] = $codeClone;
         } else {
             $existClone = $this->clonesById[$id];
 
-            foreach ($clone->files() as $file) {
-                $existClone->add($file);
+            foreach ($codeClone->files() as $codeCloneFile) {
+                $existClone->add($codeCloneFile);
             }
         }
 
-        $this->numberOfDuplicatedLines += $clone->numberOfLines() * (\count($clone->files()) - 1);
+        $this->numberOfDuplicatedLines += $codeClone->numberOfLines() * (\count($codeClone->files()) - 1);
 
-        foreach ($clone->files() as $file) {
-            if (!isset($this->filesWithClones[$file->name()])) {
-                $this->filesWithClones[$file->name()] = true;
+        foreach ($codeClone->files() as $codeCloneFile) {
+            if (!isset($this->filesWithClones[$codeCloneFile->name()])) {
+                $this->filesWithClones[$codeCloneFile->name()] = true;
             }
         }
 
-        $this->largestCloneSize = max($this->largestCloneSize, $clone->numberOfLines());
+        $this->largestCloneSize = max($this->largestCloneSize, $codeClone->numberOfLines());
     }
 
     /**

@@ -18,14 +18,14 @@ use SebastianBergmann\PHPCPD\CodeCloneMap;
 final class PMD extends AbstractXmlLogger
 {
     /** @noinspection UnusedFunctionResultInspection */
-    public function processClones(CodeCloneMap $clones): void
+    public function processClones(CodeCloneMap $codeCloneMap): void
     {
-        $cpd = $this->document->createElement('pmd-cpd');
+        $domElement = $this->document->createElement('pmd-cpd');
 
-        $this->document->appendChild($cpd);
+        $this->document->appendChild($domElement);
 
-        foreach ($clones as $clone) {
-            $duplication = $cpd->appendChild(
+        foreach ($codeCloneMap as $clone) {
+            $duplication = $domElement->appendChild(
                 $this->document->createElement('duplication')
             );
 

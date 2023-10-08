@@ -26,19 +26,19 @@ final class Detector
         $this->strategy = $strategy;
     }
 
-    public function copyPasteDetection(Finder $files): CodeCloneMap
+    public function copyPasteDetection(Finder $finder): CodeCloneMap
     {
-        $result = new CodeCloneMap();
+        $codeCloneMap = new CodeCloneMap();
 
-        foreach ($files as $file) {
+        foreach ($finder as $file) {
             $this->strategy->processFile(
                 $file->getRealPath(),
-                $result
+                $codeCloneMap
             );
         }
 
         $this->strategy->postProcess();
 
-        return $result;
+        return $codeCloneMap;
     }
 }

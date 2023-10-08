@@ -40,9 +40,9 @@ final class SuffixTreeStrategy extends AbstractStrategy
      */
     private array $word = [];
 
-    private ?CodeCloneMap $result = null;
+    private ?CodeCloneMap $codeCloneMap = null;
 
-    public function processFile(string $file, CodeCloneMap $result): void
+    public function processFile(string $file, CodeCloneMap $codeCloneMap): void
     {
         $content = file_get_contents($file);
         $tokens = token_get_all($content);
@@ -61,7 +61,7 @@ final class SuffixTreeStrategy extends AbstractStrategy
             }
         }
 
-        $this->result = $result;
+        $this->codeCloneMap = $codeCloneMap;
     }
 
     /**
@@ -69,7 +69,7 @@ final class SuffixTreeStrategy extends AbstractStrategy
      */
     public function postProcess(): void
     {
-        if (!$this->result instanceof CodeCloneMap) {
+        if (!$this->codeCloneMap instanceof CodeCloneMap) {
             throw new MissingResultException('Missing result');
         }
 
@@ -97,7 +97,7 @@ final class SuffixTreeStrategy extends AbstractStrategy
                 }
 
                 $lines = $lastToken->line - $cloneInfo->token->line;
-                $this->result->add(
+                $this->codeCloneMap->add(
                     new CodeClone(
                         new CodeCloneFile($cloneInfo->token->file, $cloneInfo->token->line),
                         new CodeCloneFile($t->file, $t->line),

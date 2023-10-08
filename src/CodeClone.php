@@ -38,12 +38,12 @@ final class CodeClone
         $this->id = md5($this->lines());
     }
 
-    public function add(CodeCloneFile $file): void
+    public function add(CodeCloneFile $codeCloneFile): void
     {
-        $id = $file->id();
+        $id = $codeCloneFile->id();
 
         if (!isset($this->files[$id])) {
-            $this->files[$id] = $file;
+            $this->files[$id] = $codeCloneFile;
         }
     }
 

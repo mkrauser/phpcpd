@@ -243,7 +243,7 @@ class SuffixTree
      * true if the end-point was reached. The newly created (or reached)
      * explicit node is returned in the "global" variable.
      */
-    private function testAndSplit(int $refWordEnd, AbstractToken $nextCharacter): bool
+    private function testAndSplit(int $refWordEnd, AbstractToken $token): bool
     {
         if ($this->currentNode < 0) {
             // trap state is always end state
@@ -251,7 +251,7 @@ class SuffixTree
         }
 
         if ($refWordEnd <= $this->refWordBegin) {
-            if ($this->nextNode->get($this->currentNode, $nextCharacter) < 0) {
+            if ($this->nextNode->get($this->currentNode, $token) < 0) {
                 $this->explicitNode = $this->currentNode;
 
                 return false;
@@ -262,7 +262,7 @@ class SuffixTree
 
         $next = $this->nextNode->get($this->currentNode, $this->word[$this->refWordBegin]);
 
-        if ($nextCharacter->equals($this->word[$this->nodeWordBegin[$next] + $refWordEnd - $this->refWordBegin])) {
+        if ($token->equals($this->word[$this->nodeWordBegin[$next] + $refWordEnd - $this->refWordBegin])) {
             return true;
         }
 

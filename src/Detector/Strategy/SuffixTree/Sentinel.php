@@ -44,9 +44,9 @@ class Sentinel extends AbstractToken
         return $this->hash;
     }
 
-    public function equals(AbstractToken $other): bool
+    public function equals(AbstractToken $token): bool
     {
         // Original code uses physical object equality, not present in PHP.
-        return $other instanceof self;
+        return $token instanceof self;
     }
 }

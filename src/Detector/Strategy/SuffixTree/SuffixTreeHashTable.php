@@ -116,9 +116,9 @@ class SuffixTreeHashTable
      * Returns the next node for the given (node, character) key pair or a
      * negative value if no next node is stored for this key.
      */
-    public function get(int $keyNode, AbstractToken $keyChar): int
+    public function get(int $keyNode, AbstractToken $token): int
     {
-        $pos = $this->hashFind($keyNode, $keyChar);
+        $pos = $this->hashFind($keyNode, $token);
 
         if (!$this->keyChars[$pos] instanceof AbstractToken) {
             return -1;
@@ -130,13 +130,13 @@ class SuffixTreeHashTable
     /**
      * Inserts the given result node for the (node, character) key pair.
      */
-    public function put(int $keyNode, AbstractToken $keyChar, int $resultNode): void
+    public function put(int $keyNode, AbstractToken $token, int $resultNode): void
     {
-        $pos = $this->hashFind($keyNode, $keyChar);
+        $pos = $this->hashFind($keyNode, $token);
 
         if (null == $this->keyChars[$pos]) {
             ++$this->_numStoredNodes;
-            $this->keyChars[$pos] = $keyChar;
+            $this->keyChars[$pos] = $token;
             $this->keyNodes[$pos] = $keyNode;
         }
 
@@ -183,15 +183,15 @@ class SuffixTreeHashTable
      * Returns the position of the (node,char) key in the hash map or the
      * position to insert it into if it is not yet in.
      */
-    private function hashFind(int $keyNode, AbstractToken $keyChar): int
+    private function hashFind(int $keyNode, AbstractToken $token): int
     {
         ++$this->_numFind;
-        $hash = $keyChar->hashCode();
+        $hash = $token->hashCode();
         $pos = $this->posMod($this->primaryHash($keyNode, $hash));
         $secondary = $this->secondaryHash($keyNode, $hash);
 
         while ($this->keyChars[$pos] instanceof \SebastianBergmann\PHPCPD\Detector\Strategy\SuffixTree\AbstractToken) {
-            if ($this->keyNodes[$pos] === $keyNode && $keyChar->equals($this->keyChars[$pos])) {
+            if ($this->keyNodes[$pos] === $keyNode && $token->equals($this->keyChars[$pos])) {
                 break;
             }
 

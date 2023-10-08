@@ -38,7 +38,7 @@ final class DefaultStrategy extends AbstractStrategy
      */
     private array $hashes = [];
 
-    public function processFile(string $file, CodeCloneMap $result): void
+    public function processFile(string $file, CodeCloneMap $codeCloneMap): void
     {
         $buffer = file_get_contents($file);
         $currentTokenPositions = [];
@@ -48,7 +48,7 @@ final class DefaultStrategy extends AbstractStrategy
         $tokenNr = 0;
         $lastTokenLine = 0;
 
-        $result->addToNumberOfLines(substr_count($buffer, "\n"));
+        $codeCloneMap->addToNumberOfLines(substr_count($buffer, "\n"));
 
         unset($buffer);
 
@@ -128,7 +128,7 @@ final class DefaultStrategy extends AbstractStrategy
                     if ($numLines >= $this->config->minLines()
                         && ($fileA !== $file
                             || $firstLineA !== $firstRealLine)) {
-                        $result->add(
+                        $codeCloneMap->add(
                             new CodeClone(
                                 new CodeCloneFile($fileA, $firstLineA),
                                 new CodeCloneFile($file, $firstRealLine),
@@ -159,7 +159,7 @@ final class DefaultStrategy extends AbstractStrategy
 
             if ($numLines >= $this->config->minLines()
                 && ($fileA !== $file || $firstLineA !== $firstRealLine)) {
-                $result->add(
+                $codeCloneMap->add(
                     new CodeClone(
                         new CodeCloneFile($fileA, $firstLineA),
                         new CodeCloneFile($file, $firstRealLine),

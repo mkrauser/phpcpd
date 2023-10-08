@@ -46,10 +46,10 @@ final class EditDistanceTest extends TestCase
     {
         $argv = [1 => '.', '--min-tokens', '60'];
         $arguments = (new ArgumentsBuilder())->build($argv);
-        $config = new StrategyConfiguration($arguments);
-        $strategy = new SuffixTreeStrategy($config);
+        $strategyConfiguration = new StrategyConfiguration($arguments);
+        $suffixTreeStrategy = new SuffixTreeStrategy($strategyConfiguration);
 
-        $clones = (new Detector($strategy))->copyPasteDetection(
+        $clones = (new Detector($suffixTreeStrategy))->copyPasteDetection(
             (new Finder())->in(__DIR__.'/../fixture')->name('editdistance[1|2].php')
         );
 
@@ -61,10 +61,10 @@ final class EditDistanceTest extends TestCase
     {
         $argv = [1 => '.', '--min-tokens', '60'];
         $arguments = (new ArgumentsBuilder())->build($argv);
-        $config = new StrategyConfiguration($arguments);
-        $strategy = new DefaultStrategy($config);
+        $strategyConfiguration = new StrategyConfiguration($arguments);
+        $defaultStrategy = new DefaultStrategy($strategyConfiguration);
 
-        $clones = (new Detector($strategy))->copyPasteDetection(
+        $clones = (new Detector($defaultStrategy))->copyPasteDetection(
             (new Finder())->in(__DIR__.'/../fixture')->name('editdistance[1|2].php')
         );
 

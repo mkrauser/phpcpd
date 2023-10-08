@@ -27,9 +27,9 @@ final class CodeCloneMapIterator implements \Iterator
 
     private int $position = 0;
 
-    public function __construct(CodeCloneMap $clones)
+    public function __construct(CodeCloneMap $codeCloneMap)
     {
-        $this->clones = $clones->clones();
+        $this->clones = $codeCloneMap->clones();
 
         usort(
             $this->clones,

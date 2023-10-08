@@ -132,8 +132,8 @@ final class DetectorTest extends TestCase
     {
         $argv = [1 => '.', '--min-lines', '20', '--min-tokens', '50'];
         $arguments = (new ArgumentsBuilder())->build($argv);
-        $config = new StrategyConfiguration($arguments);
-        $strategy->setConfig($config);
+        $strategyConfiguration = new StrategyConfiguration($arguments);
+        $strategy->setConfig($strategyConfiguration);
 
         $clones = (new Detector($strategy))->copyPasteDetection(
             (new Finder())->in(\dirname(__DIR__).'/fixture')->name('[a|b].php')
@@ -163,8 +163,8 @@ final class DetectorTest extends TestCase
     {
         $argv = [1 => '.', '--min-lines', '20', '--min-tokens', '60'];
         $arguments = (new ArgumentsBuilder())->build($argv);
-        $config = new StrategyConfiguration($arguments);
-        $strategy->setConfig($config);
+        $strategyConfiguration = new StrategyConfiguration($arguments);
+        $strategy->setConfig($strategyConfiguration);
 
         $clones = (new Detector($strategy))->copyPasteDetection(
             (new Finder())->in(\dirname(__DIR__).'/fixture')->name('[a|b|c].php')
@@ -199,8 +199,8 @@ final class DetectorTest extends TestCase
     {
         $argv = [1 => '.', '--min-lines', '20', '--min-tokens', '61'];
         $arguments = (new ArgumentsBuilder())->build($argv);
-        $config = new StrategyConfiguration($arguments);
-        $strategy->setConfig($config);
+        $strategyConfiguration = new StrategyConfiguration($arguments);
+        $strategy->setConfig($strategyConfiguration);
         $clones = (new Detector($strategy))->copyPasteDetection(
             (new Finder())->in(\dirname(__DIR__).'/fixture')->name('[a|b].php')
         );
@@ -215,8 +215,8 @@ final class DetectorTest extends TestCase
     {
         $argv = [1 => '.', '--min-lines', '21', '--min-tokens', '60'];
         $arguments = (new ArgumentsBuilder())->build($argv);
-        $config = new StrategyConfiguration($arguments);
-        $strategy->setConfig($config);
+        $strategyConfiguration = new StrategyConfiguration($arguments);
+        $strategy->setConfig($strategyConfiguration);
         $clones = (new Detector($strategy))->copyPasteDetection(
             (new Finder())->in(__DIR__.'/../fixture')->name('[a|b].php')
         );
@@ -231,8 +231,8 @@ final class DetectorTest extends TestCase
     {
         $argv = [1 => '.', '--min-lines', '5', '--min-tokens', '20', '--fuzzy', 'true'];
         $arguments = (new ArgumentsBuilder())->build($argv);
-        $config = new StrategyConfiguration($arguments);
-        $strategy->setConfig($config);
+        $strategyConfiguration = new StrategyConfiguration($arguments);
+        $strategy->setConfig($strategyConfiguration);
         $clones = (new Detector($strategy))->copyPasteDetection(
             (new Finder())->in(__DIR__.'/../fixture')->name('[a|b].php')
         );
@@ -278,10 +278,10 @@ final class DetectorTest extends TestCase
         // Build default config.
         $argv = [1 => '.'];
         $arguments = (new ArgumentsBuilder())->build($argv);
-        $config = new StrategyConfiguration($arguments);
+        $strategyConfiguration = new StrategyConfiguration($arguments);
 
         return [
-            [new DefaultStrategy($config)],
+            [new DefaultStrategy($strategyConfiguration)],
         ];
     }
 }
