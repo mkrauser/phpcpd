@@ -24,7 +24,7 @@ return static function (RectorConfig $rectorConfig): void {
         SetList::DEAD_CODE,
         SetList::CODE_QUALITY,
         SetList::CODING_STYLE,
-        //SetList::NAMING,
+        SetList::NAMING,
         //SetList::TYPE_DECLARATION,
         //SetList::PRIVATIZATION,
         //SetList::EARLY_RETURN,
