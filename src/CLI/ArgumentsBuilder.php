@@ -55,7 +55,7 @@ final class ArgumentsBuilder
         /** @var list<string> $suffixes */
         $suffixes = ['*.php'];
         $pmdCpdXmlLogfile = null;
-        $githubLogOutput  = false;
+        $githubLogOutput = false;
         $linesThreshold = 5;
         $tokensThreshold = 70;
         $editDistance = 5;

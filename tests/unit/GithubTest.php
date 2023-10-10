@@ -1,4 +1,7 @@
-<?php declare(strict_types=1);
+<?php
+
+declare(strict_types=1);
+
 /*
  * This file is part of PHP Copy/Paste Detector (PHPCPD).
  *
@@ -7,6 +10,7 @@
  * For the full copyright and license information, please view the LICENSE
  * file that was distributed with this source code.
  */
+
 namespace SebastianBergmann\PHPCPD\Log;
 
 use PHPUnit\Framework\TestCase;
@@ -26,12 +30,12 @@ final class GithubTest extends TestCase
 {
     public function testSubstitutesDisallowedCharacters(): void
     {
-        $testFile1 = dirname(__DIR__) . '/fixture/with_ascii_escape.php';
-        $testFile2 = dirname(__DIR__) . '/fixture/with_ascii_escape2.php';
-        $file1     = new CodeCloneFile($testFile1, 8);
-        $file2     = new CodeCloneFile($testFile2, 8);
-        $clone     = new CodeClone($file1, $file2, 4, 4);
-        $cloneMap  = new CodeCloneMap;
+        $testFile1 = \dirname(__DIR__).'/fixture/with_ascii_escape.php';
+        $testFile2 = \dirname(__DIR__).'/fixture/with_ascii_escape2.php';
+        $file1 = new CodeCloneFile($testFile1, 8);
+        $file2 = new CodeCloneFile($testFile2, 8);
+        $clone = new CodeClone($file1, $file2, 4, 4);
+        $cloneMap = new CodeCloneMap();
 
         $cloneMap->add($clone);
 
