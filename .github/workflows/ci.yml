@@ -1,10 +1,10 @@
 # https://help.github.com/en/categories/automating-your-workflow-with-github-actions
 
 on:
-  "pull_request": ~
+  "pull_request": null
   "push":
     branches:
-      - 'main'
+      - "main"
 
 name: "CI"
 
@@ -16,7 +16,7 @@ jobs:
 
     steps:
       - name: "Checkout"
-        uses: "actions/checkout@v3"
+        uses: "actions/checkout@v4"
 
       - name: "Run friendsofphp/php-cs-fixer"
         run: |
@@ -29,16 +29,21 @@ jobs:
 
     runs-on: "ubuntu-latest"
 
+    strategy:
+      matrix:
+        php-version:
+          - "8.1"
+
     steps:
       - name: "Checkout"
-        uses: "actions/checkout@v2"
+        uses: "actions/checkout@v4"
 
       - name: "Install PHP with extensions"
         uses: "shivammathur/setup-php@v2"
         with:
           php-version: "${{ matrix.php-version }}"
           coverage: "pcov"
-          tools: composer:2.5.x, php-cs-fixer:3.17.x, psalm:5.12.x
+          tools: "composer:2.5.x, php-cs-fixer:3.17.x, psalm:5.12.x"
 
       - name: "Update dependencies with composer"
         run: "composer update --no-ansi --no-interaction --no-progress"
@@ -59,17 +64,17 @@ jobs:
 
     steps:
       - name: "Checkout"
-        uses: "actions/checkout@v2"
+        uses: "actions/checkout@v4"
 
       - name: "Install PHP with extensions"
         uses: "shivammathur/setup-php@v2"
         with:
           php-version: "${{ matrix.php-version }}"
           coverage: "pcov"
-          tools: composer, phpunit:10.4
+          tools: "composer, phpunit:10.4"
 
       - name: "Cache dependencies installed with composer"
-        uses: "actions/cache@v1"
+        uses: "actions/cache@v3"
         with:
           path: "~/.composer/cache"
           key: "php${{ matrix.php-version }}-composer-${{ matrix.dependencies }}-${{ hashFiles('**/composer.json') }}"
@@ -81,12 +86,16 @@ jobs:
       - name: "Run tests with phpunit/phpunit"
         run: "phpunit --coverage-clover=coverage.xml"
 
-      - name: Upload coverage reports to Codecov
-        uses: codecov/codecov-action@v3
+      - name: "Upload coverage reports to Codecov"
+        uses: "codecov/codecov-action@v3"
 
   rector-php-cs-fixer-pr:
-    name: PHP-CS-Fixer / Rector
+    name: "PHP-CS-Fixer / Rector"
     runs-on: "ubuntu-latest"
+    strategy:
+      matrix:
+        php-version:
+          - "8.1"
     if: github.actor != 'dependabot[bot]' && github.event_name == 'pull_request'
     steps:
       - name: "Checkout"
@@ -98,9 +107,9 @@ jobs:
         with:
           php-version: "${{ matrix.php-version }}"
           coverage: "pcov"
-          tools: composer, phpunit:10.4
-      - name: Get PR Data
-        id: pr
+          tools: "composer, phpunit:10.4"
+      - name: "Get PR Data"
+        id: "pr"
         run: |
           cat "$GITHUB_EVENT_PATH" | jq .
           export NUMBER=$(jq --raw-output .pull_request.number "$GITHUB_EVENT_PATH")
@@ -111,42 +120,44 @@ jobs:
           
           export TITLE=$(jq --raw-output .pull_request.title "$GITHUB_EVENT_PATH")
           echo "::set-output name=title::$TITLE"
-      - name: Checkout PR
+      - name: "Checkout PR"
         run: |
           git checkout ${{ steps.pr.outputs.branch }}
       # —— Composer 🧙‍️ —————————————————————————————————————————————————————————
-      - name: Validate composer.json and composer.lock
-        run: composer validate
-      - name: Install Composer dependencies
-        run: composer install
-      # —— Run php-cs-fixer and rector 🧙‍️———————————————————————————————————————
-      - name: php-cs-fixer
+      - name: "Validate composer.json and composer.lock"
+        run: "composer validate"
+      - name: "Install Composer dependencies"
+        run: "composer install"
+      # —— Run php-cs-fixer and rector 🧙‍️ ——————————————————————————————————————
+      - name: "php-cs-fixer"
         run: |
           wget https://cs.symfony.com/download/php-cs-fixer-v3.phar -O php-cs-fixer
           php php-cs-fixer fix
-      - name: commit php-cs-fixer changes
+      - name: "commit php-cs-fixer changes"
         run: |
           git diff --quiet && git diff --staged --quiet || git -c user.name='php-cs-fixer' -c user.email='php-cs-fixer@neubaukompass.de' commit -a -m "Changes by php-cs-fixer"
-      - name: rector
+      - name: "rector"
         run: |
           ./vendor/bin/rector process
           git add -u
-      - name: commit rector changes
+      - name: "commit rector changes"
         run: |
           git diff --quiet && git diff --staged --quiet || git -c user.name='rector' -c user.email='rector@neubaukompass.de' commit -a -m "Ruling the world via Rector!"
-      # —— Create PR if there are change 🧙‍️—————————————————————————————————————
-      - name: Create PR for CS fixups
-        uses: peter-evans/create-pull-request@v4 # renovate: tag=v4.0.2
-        id: create-pull-request
+      # —— Create PR if there are change 🧙‍️ ————————————————————————————————————
+      - name: "Create PR for CS fixups"
+        uses: "peter-evans/create-pull-request@v4" # renovate: tag=v4.0.2
+        id: "create-pull-request"
         with:
           token: ${{ secrets.GITHUB_TOKEN }}
           title: "[rector] ${{ steps.pr.outputs.title }}"
           base: ${{ steps.pr.outputs.branch }}
-          branch: rectified/${{ steps.pr.outputs.branch }}
+          branch: "rectified/${{ steps.pr.outputs.branch }}"
           assignees: ${{ github.actor }}
-          labels: php-cs-fixer, rector
-          body: Please merge these changes into the ${{ steps.pr.outputs.branch }} branch to fix coding standard violations.
-          commit-message: Changed by rector in ${{ steps.pr.outputs.branch }}
-      - name: Fail the workflow when necessary CS fixes were detected
-        run: echo "Failing workflow run because CS violations were detected." && exit 1
+          labels: "php-cs-fixer, rector"
+          body: "Please merge these changes into the ${{ steps.pr.outputs.branch }} branch to fix coding standard violations."
+          commit-message: "Changed by rector in ${{ steps.pr.outputs.branch }}"
+      - name: "Fail the workflow when necessary CS fixes were detected"
+        run: |
+          echo "Failing workflow run because CS violations were detected."
+          exit 1
         if: steps.create-pull-request.outputs.pr_number
