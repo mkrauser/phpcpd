@@ -15,16 +15,10 @@ namespace SebastianBergmann\PHPCPD;
 
 final class CodeCloneFile
 {
-    private string $id;
+    private readonly string $id;
 
-    private string $name;
-
-    private int $startLine;
-
-    public function __construct(string $name, int $startLine)
+    public function __construct(private readonly string $name, private readonly int $startLine)
     {
-        $this->name = $name;
-        $this->startLine = $startLine;
         $this->id = $this->name.':'.$this->startLine;
     }
 

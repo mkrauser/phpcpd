@@ -19,14 +19,10 @@ abstract class AbstractXmlLogger
 {
     protected \DOMDocument $document;
 
-    private string $filename;
-
-    public function __construct(string $filename)
+    public function __construct(private readonly string $filename)
     {
         $this->document = new \DOMDocument('1.0', 'UTF-8');
         $this->document->formatOutput = true;
-
-        $this->filename = $filename;
     }
 
     abstract public function processClones(CodeCloneMap $clones): void;

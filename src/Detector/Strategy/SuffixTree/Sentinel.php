@@ -22,7 +22,7 @@ namespace SebastianBergmann\PHPCPD\Detector\Strategy\SuffixTree;
 class Sentinel extends AbstractToken
 {
     /** @var int The hash value used. */
-    private int $hash;
+    private readonly int $hash;
 
     public function __construct()
     {

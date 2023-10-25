@@ -17,15 +17,15 @@ use SebastianBergmann\PHPCPD\Arguments;
 
 final class StrategyConfiguration
 {
-    private int $minLines;
+    private readonly int $minLines;
 
-    private int $minTokens;
+    private readonly int $minTokens;
 
-    private int $editDistance;
+    private readonly int $editDistance;
 
-    private int $headEquality;
+    private readonly int $headEquality;
 
-    private bool $fuzzy;
+    private readonly bool $fuzzy;
 
     public function __construct(Arguments $arguments)
     {
