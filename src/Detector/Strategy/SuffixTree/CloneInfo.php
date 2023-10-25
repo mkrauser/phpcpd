@@ -14,7 +14,7 @@ declare(strict_types=1);
 namespace SebastianBergmann\PHPCPD\Detector\Strategy\SuffixTree;
 
 /** Stores information on a clone. */
-class CloneInfo
+final class CloneInfo
 {
     /**
      * Length of the clone in tokens.

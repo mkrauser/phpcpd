@@ -116,7 +116,7 @@ final class CodeCloneMap implements \Countable, \IteratorAggregate
 
     public function averageSize(): float
     {
-        return $this->numberOfDuplicatedLines() / $this->count();
+        return $this->numberOfDuplicatedLines / $this->count();
     }
 
     public function largestSize(): int

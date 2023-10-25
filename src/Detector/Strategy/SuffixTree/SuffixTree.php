@@ -43,26 +43,24 @@ namespace SebastianBergmann\PHPCPD\Detector\Strategy\SuffixTree;
  *
  * @ConQAT.Rating GREEN Hash: 4B2EF0606B3085A6831764ED042FF20D
  */
-class SuffixTree
+final class SuffixTree
 {
     /**
      * Infinity in this context.
      */
-    protected int $INFTY;
+    private int $INFTY;
 
     /**
      * The word we are working on.
      *
      * @var AbstractToken[]
      */
-    protected $word;
+    private $word;
 
     /**
      * The number of nodes created so far.
-     *
-     * @var int
      */
-    protected $numNodes = 0;
+    private int $numNodes = 0;
 
     /**
      * For each node this holds the index of the first character of
@@ -71,7 +69,7 @@ class SuffixTree
      *
      * @var int[]
      */
-    protected $nodeWordBegin;
+    private $nodeWordBegin;
 
     /**
      * For each node this holds the index of the one after the last character of
@@ -80,48 +78,17 @@ class SuffixTree
      *
      * @var int[]
      */
-    protected $nodeWordEnd;
+    private $nodeWordEnd;
 
     /** For each node its suffix link (called function <em>f</em> by Ukkonen).
      * @var int[] */
-    protected $suffixLink;
+    private $suffixLink;
 
     /**
      * The next node function realized as a hash table. This corresponds to the
      * <em>g</em> function used in Ukkonen's paper.
      */
-    protected \SebastianBergmann\PHPCPD\Detector\Strategy\SuffixTree\SuffixTreeHashTable $nextNode;
-
-    /**
-     * An array giving for each node the index where the first child will be
-     * stored (or -1 if it has no children). It is initially empty and will be
-     * filled "on demand" using
-     * {@link org.conqat.engine.code_clones.detection.suffixtree.SuffixTreeHashTable#extractChildLists(int[], int[], int[])}
-     * .
-     *
-     * @var int[]
-     */
-    protected $nodeChildFirst = [];
-
-    /**
-     * This array gives the next index of the child list or -1 if this is the
-     * last one. It is initially empty and will be filled "on demand" using
-     * {@link org.conqat.engine.code_clones.detection.suffixtree.SuffixTreeHashTable#extractChildLists(int[], int[], int[])}
-     * .
-     *
-     * @var int[]
-     */
-    protected $nodeChildNext = [];
-
-    /**
-     * This array stores the actual name (=number) of the mode in the child
-     * list. It is initially empty and will be filled "on demand" using
-     * {@link org.conqat.engine.code_clones.detection.suffixtree.SuffixTreeHashTable#extractChildLists(int[], int[], int[])}
-     * .
-     *
-     * @var int[]
-     */
-    protected $nodeChildNode = [];
+    private \SebastianBergmann\PHPCPD\Detector\Strategy\SuffixTree\SuffixTreeHashTable $nextNode;
 
     /**
      * The node we are currently at as a "global" variable (as it is always
@@ -168,20 +135,6 @@ class SuffixTree
         for ($i = 0; $i < $size; ++$i) {
             $this->update($i);
             $this->canonize($i + 1);
-        }
-    }
-
-    /**
-     * This method makes sure the child lists are filled (required for
-     * traversing the tree).
-     */
-    protected function ensureChildLists(): void
-    {
-        if (null == $this->nodeChildFirst || \count($this->nodeChildFirst) < $this->numNodes) {
-            $this->nodeChildFirst = array_fill(0, $this->numNodes, 0);
-            $this->nodeChildNext = array_fill(0, $this->numNodes, 0);
-            $this->nodeChildNode = array_fill(0, $this->numNodes, 0);
-            $this->nextNode->extractChildLists($this->nodeChildFirst, $this->nodeChildNext, $this->nodeChildNode);
         }
     }
 

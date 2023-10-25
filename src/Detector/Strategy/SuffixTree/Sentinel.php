@@ -19,7 +19,7 @@ namespace SebastianBergmann\PHPCPD\Detector\Strategy\SuffixTree;
  * it to the suffix tree. For the sentinel equality and object identity are
  * the same!
  */
-class Sentinel extends AbstractToken
+final class Sentinel extends AbstractToken
 {
     /** @var int The hash value used. */
     private int $hash;

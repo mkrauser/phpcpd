@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace SebastianBergmann\PHPCPD\Detector\Strategy\SuffixTree;
 
-class Token extends AbstractToken
+final class Token extends AbstractToken
 {
     public function __construct(
         int $tokenCode,

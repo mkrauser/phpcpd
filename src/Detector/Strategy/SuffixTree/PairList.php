@@ -27,7 +27,7 @@ use SebastianBergmann\PHPCPD\OutOfBoundsException;
  * @template T
  * @template S
  */
-class PairList
+final class PairList
 {
     /**
      * The current size.

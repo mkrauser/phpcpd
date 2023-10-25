@@ -23,14 +23,19 @@ namespace SebastianBergmann\PHPCPD\Detector\Strategy\SuffixTree;
  *
  * @ConQAT.Rating GREEN Hash: BB94CD690760BC239F04D32D5BCAC33E
  */
-class ApproximateCloneDetectingSuffixTree extends SuffixTree
+final class ApproximateCloneDetectingSuffixTree extends SuffixTree
 {
+    public $word;
+    public $nextNode;
+    public $nodeWordEnd;
+    public $nodeWordBegin;
+    public $nodeChildFirst;
+    public $nodeChildNext;
+    public $nodeChildNode;
     /**
      * The minimal length of clones to return.
-     *
-     * @var int
      */
-    protected $minLength = 70;
+    private int $minLength = 70;
 
     /**
      * The number of leaves reachable from the given node (1 for leaves).
@@ -183,7 +188,7 @@ class ApproximateCloneDetectingSuffixTree extends SuffixTree
      * This should return true, if the provided character is not allowed to
      * match with anything else (e.g. is a sentinel).
      */
-    protected function mayNotMatch(AbstractToken $token): bool
+    private function mayNotMatch(AbstractToken $token): bool
     {
         return $token instanceof Sentinel;
     }
@@ -195,7 +200,7 @@ class ApproximateCloneDetectingSuffixTree extends SuffixTree
      * {@link #MAX_LENGTH} and potentially minor parts of such a clone might be
      * lost.
      */
-    protected function reportBufferShortage(int $leafStart, int $leafLength): void
+    private function reportBufferShortage(int $leafStart, int $leafLength): void
     {
         echo 'Encountered buffer shortage: '.$leafStart.' '.$leafLength."\n";
     }
