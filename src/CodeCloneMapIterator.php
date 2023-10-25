@@ -33,7 +33,7 @@ final class CodeCloneMapIterator implements \Iterator
 
         usort(
             $this->clones,
-            static fn(CodeClone $a, CodeClone $b): int => $a->numberOfLines() <=> $b->numberOfLines()
+            static fn (CodeClone $a, CodeClone $b): int => $a->numberOfLines() <=> $b->numberOfLines()
         );
 
         $this->clones = array_reverse($this->clones);

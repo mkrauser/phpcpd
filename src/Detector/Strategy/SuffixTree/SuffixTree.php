@@ -147,7 +147,7 @@ class SuffixTree
     public function __construct(/**
      * The word we are working on.
      */
-    protected $word)
+        protected $word)
     {
         $size = \count($word);
         $this->INFTY = $size;
