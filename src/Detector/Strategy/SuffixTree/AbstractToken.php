@@ -13,7 +13,7 @@ declare(strict_types=1);
 
 namespace SebastianBergmann\PHPCPD\Detector\Strategy\SuffixTree;
 
-abstract class AbstractToken
+abstract class AbstractToken implements \Stringable
 {
     /** @var int */
     public $tokenCode;
