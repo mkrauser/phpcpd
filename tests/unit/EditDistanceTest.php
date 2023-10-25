@@ -20,7 +20,6 @@ use SebastianBergmann\PHPCPD\Detector\Strategy\StrategyConfiguration;
 use SebastianBergmann\PHPCPD\Detector\Strategy\SuffixTreeStrategy;
 use Symfony\Component\Finder\Finder;
 
-
 #[\PHPUnit\Framework\Attributes\CoversClass(\SebastianBergmann\PHPCPD\Arguments::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(\SebastianBergmann\PHPCPD\ArgumentsBuilder::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(\SebastianBergmann\PHPCPD\Detector\Detector::class)]
@@ -35,9 +34,9 @@ use Symfony\Component\Finder\Finder;
 #[\PHPUnit\Framework\Attributes\CoversClass(\SebastianBergmann\PHPCPD\Detector\Strategy\SuffixTree\SuffixTreeHashTable::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(\SebastianBergmann\PHPCPD\Detector\Strategy\SuffixTree\Token::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(\SebastianBergmann\PHPCPD\Detector\Strategy\SuffixTreeStrategy::class)]
-#[\PHPUnit\Framework\Attributes\UsesClass('\\' . \SebastianBergmann\PHPCPD\CodeClone::class)]
-#[\PHPUnit\Framework\Attributes\UsesClass('\\' . \SebastianBergmann\PHPCPD\CodeCloneFile::class)]
-#[\PHPUnit\Framework\Attributes\UsesClass('\\' . \SebastianBergmann\PHPCPD\CodeCloneMap::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass('\\'.\SebastianBergmann\PHPCPD\CodeClone::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass('\\'.\SebastianBergmann\PHPCPD\CodeCloneFile::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass('\\'.\SebastianBergmann\PHPCPD\CodeCloneMap::class)]
 final class EditDistanceTest extends TestCase
 {
     public function testEditDistanceWithSuffixtree(): void
