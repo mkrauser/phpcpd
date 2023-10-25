@@ -20,16 +20,15 @@ use SebastianBergmann\PHPCPD\Detector\Strategy\DefaultStrategy;
 use SebastianBergmann\PHPCPD\Detector\Strategy\StrategyConfiguration;
 use Symfony\Component\Finder\Finder;
 
-
 #[\PHPUnit\Framework\Attributes\CoversClass(\SebastianBergmann\PHPCPD\Arguments::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(\SebastianBergmann\PHPCPD\ArgumentsBuilder::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(\SebastianBergmann\PHPCPD\Detector\Detector::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(\SebastianBergmann\PHPCPD\Detector\Strategy\AbstractStrategy::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(\SebastianBergmann\PHPCPD\Detector\Strategy\DefaultStrategy::class)]
 #[\PHPUnit\Framework\Attributes\CoversClass(\SebastianBergmann\PHPCPD\Detector\Strategy\StrategyConfiguration::class)]
-#[\PHPUnit\Framework\Attributes\UsesClass('\\' . \SebastianBergmann\PHPCPD\CodeClone::class)]
-#[\PHPUnit\Framework\Attributes\UsesClass('\\' . \SebastianBergmann\PHPCPD\CodeCloneFile::class)]
-#[\PHPUnit\Framework\Attributes\UsesClass('\\' . \SebastianBergmann\PHPCPD\CodeCloneMap::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass('\\'.\SebastianBergmann\PHPCPD\CodeClone::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass('\\'.\SebastianBergmann\PHPCPD\CodeCloneFile::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass('\\'.\SebastianBergmann\PHPCPD\CodeCloneMap::class)]
 final class DetectorTest extends TestCase
 {
     /**

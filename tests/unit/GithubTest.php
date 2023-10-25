@@ -18,12 +18,11 @@ use SebastianBergmann\PHPCPD\CodeClone;
 use SebastianBergmann\PHPCPD\CodeCloneFile;
 use SebastianBergmann\PHPCPD\CodeCloneMap;
 
-
 #[\PHPUnit\Framework\Attributes\CoversClass(\SebastianBergmann\PHPCPD\Log\Github::class)]
-#[\PHPUnit\Framework\Attributes\UsesClass('\\' . \SebastianBergmann\PHPCPD\CodeClone::class)]
-#[\PHPUnit\Framework\Attributes\UsesClass('\\' . \SebastianBergmann\PHPCPD\CodeCloneFile::class)]
-#[\PHPUnit\Framework\Attributes\UsesClass('\\' . \SebastianBergmann\PHPCPD\CodeCloneMap::class)]
-#[\PHPUnit\Framework\Attributes\UsesClass('\\' . \SebastianBergmann\PHPCPD\CodeCloneMapIterator::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass('\\'.\SebastianBergmann\PHPCPD\CodeClone::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass('\\'.\SebastianBergmann\PHPCPD\CodeCloneFile::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass('\\'.\SebastianBergmann\PHPCPD\CodeCloneMap::class)]
+#[\PHPUnit\Framework\Attributes\UsesClass('\\'.\SebastianBergmann\PHPCPD\CodeCloneMapIterator::class)]
 final class GithubTest extends TestCase
 {
     public function testSubstitutesDisallowedCharacters(): void
