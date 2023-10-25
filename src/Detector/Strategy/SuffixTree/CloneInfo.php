@@ -42,17 +42,14 @@ class CloneInfo
      */
     public $otherClones;
 
-    /**
+    /** Constructor. */
+    public function __construct(int $length, int $position, /**
      * Number of occurrences of the clone.
      */
-    private int $occurrences;
-
-    /** Constructor. */
-    public function __construct(int $length, int $position, int $occurrences, AbstractToken $token, PairList $otherClones)
+    private readonly int $occurrences, AbstractToken $token, PairList $otherClones)
     {
         $this->length = $length;
         $this->position = $position;
-        $this->occurrences = $occurrences;
         $this->token = $token;
         $this->otherClones = $otherClones;
     }

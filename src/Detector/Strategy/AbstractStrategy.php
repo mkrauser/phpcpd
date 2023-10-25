@@ -32,11 +32,8 @@ abstract class AbstractStrategy
         \T_NS_SEPARATOR => true,
     ];
 
-    protected StrategyConfiguration $config;
-
-    public function __construct(StrategyConfiguration $config)
+    public function __construct(protected StrategyConfiguration $config)
     {
-        $this->config = $config;
     }
 
     public function setConfig(StrategyConfiguration $config): void

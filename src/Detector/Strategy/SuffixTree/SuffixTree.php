@@ -51,13 +51,6 @@ class SuffixTree
     protected int $INFTY;
 
     /**
-     * The word we are working on.
-     *
-     * @var AbstractToken[]
-     */
-    protected $word;
-
-    /**
      * The number of nodes created so far.
      *
      * @var int
@@ -151,9 +144,11 @@ class SuffixTree
      *
      * @param AbstractToken[] $word
      */
-    public function __construct($word)
+    public function __construct(/**
+     * The word we are working on.
+     */
+    protected $word)
     {
-        $this->word = $word;
         $size = \count($word);
         $this->INFTY = $size;
 

@@ -19,11 +19,8 @@ use Symfony\Component\Finder\Finder;
 
 final class Detector
 {
-    private AbstractStrategy $strategy;
-
-    public function __construct(AbstractStrategy $strategy)
+    public function __construct(private readonly AbstractStrategy $strategy)
     {
-        $this->strategy = $strategy;
     }
 
     public function copyPasteDetection(Finder $files): CodeCloneMap

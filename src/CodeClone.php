@@ -15,26 +15,19 @@ namespace SebastianBergmann\PHPCPD;
 
 final class CodeClone
 {
-    private int $numberOfLines;
-
-    private int $numberOfTokens;
-
     /**
      * @psalm-var array<string,CodeCloneFile>
      */
     private array $files = [];
 
-    private string $id;
+    private readonly string $id;
 
     private string $lines = '';
 
-    public function __construct(CodeCloneFile $fileA, CodeCloneFile $fileB, int $numberOfLines, int $numberOfTokens)
+    public function __construct(CodeCloneFile $fileA, CodeCloneFile $fileB, private readonly int $numberOfLines, private readonly int $numberOfTokens)
     {
         $this->add($fileA);
         $this->add($fileB);
-
-        $this->numberOfLines = $numberOfLines;
-        $this->numberOfTokens = $numberOfTokens;
         $this->id = md5($this->lines());
     }
 
@@ -63,9 +56,7 @@ final class CodeClone
             $this->lines = implode(
                 '',
                 array_map(
-                    static function (string $line) use ($indent): string {
-                        return $indent.$line;
-                    },
+                    static fn(string $line): string => $indent.$line,
                     \array_slice(
                         file($file->name()),
                         $file->startLine() - 1,

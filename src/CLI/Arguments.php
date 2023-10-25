@@ -16,63 +16,36 @@ namespace SebastianBergmann\PHPCPD;
 final class Arguments
 {
     /**
-     * @psalm-var list<string>
-     */
-    private array $directories;
-
-    /**
-     * @psalm-var list<string>
-     */
-    private array $suffixes;
-
-    /**
-     * @psalm-var list<string>
-     */
-    private array $exclude;
-
-    private ?string $pmdCpdXmlLogfile;
-
-    private bool $githubLogOutput;
-
-    private int $linesThreshold;
-
-    private int $tokensThreshold;
-
-    private bool $fuzzy;
-
-    private bool $verbose;
-
-    private bool $help;
-
-    private bool $version;
-
-    private ?string $algorithm;
-
-    private int $editDistance;
-
-    private int $headEquality;
-
-    /**
      * @param list<string> $directories
      * @param list<string> $suffixes
      * @param list<string> $exclude
      */
-    public function __construct(array $directories, array $suffixes, array $exclude, ?string $pmdCpdXmlLogfile, bool $githubLogOutput, int $linesThreshold, int $tokensThreshold, bool $fuzzy, bool $verbose, bool $help, bool $version, ?string $algorithm, int $editDistance, int $headEquality)
+    public function __construct(
+        /**
+         * @psalm-var list<string>
+         */
+        private readonly array $directories,
+        /**
+         * @psalm-var list<string>
+         */
+        private readonly array $suffixes,
+        /**
+         * @psalm-var list<string>
+         */
+        private readonly array $exclude,
+        private readonly ?string $pmdCpdXmlLogfile,
+        private readonly bool $githubLogOutput,
+        private readonly int $linesThreshold,
+        private readonly int $tokensThreshold,
+        private readonly bool $fuzzy,
+        private readonly bool $verbose,
+        private readonly bool $help,
+        private readonly bool $version,
+        private readonly ?string $algorithm,
+        private readonly int $editDistance,
+        private readonly int $headEquality
+    )
     {
-        $this->directories = $directories;
-        $this->suffixes = $suffixes;
-        $this->exclude = $exclude;
-        $this->pmdCpdXmlLogfile = $pmdCpdXmlLogfile;
-        $this->githubLogOutput = $githubLogOutput;
-        $this->linesThreshold = $linesThreshold;
-        $this->tokensThreshold = $tokensThreshold;
-        $this->fuzzy = $fuzzy;
-        $this->verbose = $verbose;
-        $this->help = $help;
-        $this->version = $version;
-        $this->algorithm = $algorithm;
-        $this->editDistance = $editDistance;
-        $this->headEquality = $headEquality;
     }
 
     /**
