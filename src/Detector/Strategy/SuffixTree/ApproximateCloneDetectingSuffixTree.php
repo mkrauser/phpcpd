@@ -172,7 +172,7 @@ class ApproximateCloneDetectingSuffixTree extends SuffixTree
 
         /** @var CloneInfo[] $values */
         $values = array_values($map);
-        usort($values, static fn(CloneInfo $a, CloneInfo $b): int => $b->length - $a->length);
+        usort($values, static fn (CloneInfo $a, CloneInfo $b): int => $b->length - $a->length);
 
         return $values;
     }

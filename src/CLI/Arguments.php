@@ -44,8 +44,7 @@ final class Arguments
         private readonly ?string $algorithm,
         private readonly int $editDistance,
         private readonly int $headEquality
-    )
-    {
+    ) {
     }
 
     /**

@@ -46,7 +46,7 @@ class CloneInfo
     public function __construct(int $length, int $position, /**
      * Number of occurrences of the clone.
      */
-    private readonly int $occurrences, AbstractToken $token, PairList $otherClones)
+        private readonly int $occurrences, AbstractToken $token, PairList $otherClones)
     {
         $this->length = $length;
         $this->position = $position;

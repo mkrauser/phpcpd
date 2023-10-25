@@ -56,7 +56,7 @@ final class CodeClone
             $this->lines = implode(
                 '',
                 array_map(
-                    static fn(string $line): string => $indent.$line,
+                    static fn (string $line): string => $indent.$line,
                     \array_slice(
                         file($file->name()),
                         $file->startLine() - 1,
